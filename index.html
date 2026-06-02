@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konzept · Reichweite für MIDA · VERADEX</title>
+<style>
+  :root{
+    --ink:#0f0f0f;
+    --graphite:#2e2e2e;
+    --paper:#f7f5f2;
+    --line:#e8e6e3;
+    --mute:#9a9790;
+    --sand:#d4cfc8;
+    --accent:#8a9ba8;
+    --faint:#c8c5be;
+    --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font);
+    background:var(--sand);
+    color:var(--ink);
+    font-weight:400;
+    line-height:1.75;
+    font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .pagebg{display:none;}
+  .doc{max-width:880px;margin:0 auto;padding:28px 16px 60px;}
+
+  /* ---------- shared brand bits ---------- */
+  .mark{display:inline-block;vertical-align:middle;}
+  .wordmark{font-weight:300;letter-spacing:0.22em;}
+  .subline{
+    font-size:6px;letter-spacing:0.30em;text-transform:uppercase;
+    color:var(--accent);font-weight:400;
+  }
+  .lockup{display:flex;align-items:center;gap:14px;}
+  .lockup-logo{display:block;max-width:100%;height:auto;}
+  .lockup .stack{display:flex;flex-direction:column;gap:5px;line-height:1;}
+
+  /* ---------- cover ---------- */
+  .cover{
+    position:relative;overflow:hidden;
+    background:var(--ink);color:var(--paper);
+    padding:52px 54px 46px;
+    border-radius:3px;
+    display:flex;flex-direction:column;min-height:76vh;
+  }
+  .cover .lines{position:absolute;top:0;right:0;height:100%;width:55%;pointer-events:none;}
+  .cover .wordmark{color:var(--paper);}
+  .cover-top{display:flex;justify-content:space-between;align-items:flex-start;}
+  .doc-label{
+    font-size:11px;letter-spacing:0.32em;text-transform:uppercase;color:var(--mute);
+    margin-top:2px;
+  }
+  .cover h1{
+    font-weight:200;font-size:46px;line-height:1.12;letter-spacing:0.01em;
+    margin:78px 0 0;max-width:13ch;
+  }
+  .cover .lead{
+    font-weight:300;font-size:16.5px;line-height:1.6;color:var(--paper);
+    max-width:46ch;margin:22px 0 0;opacity:.92;
+  }
+  .cover .meta{margin-top:54px;display:flex;flex-direction:column;gap:4px;}
+  .cover .meta .who{font-weight:300;font-size:15px;letter-spacing:0.02em;}
+  .cover .meta .sub{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);}
+  .cover-foot{
+    margin-top:auto;padding-top:20px;border-top:0.5px solid rgba(247,245,242,.16);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .cover-foot .claim{font-weight:300;font-size:15px;color:var(--accent);letter-spacing:0.04em;}
+  .cover-foot .site{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);}
+
+  /* ---------- content sheet ---------- */
+  .sheet{
+    background:var(--paper);border-radius:3px;margin-top:22px;
+    padding:46px 54px 30px;
+  }
+  .runhead{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;margin-bottom:30px;border-bottom:0.5px solid var(--line);
+  }
+  .runhead .site{font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);}
+
+  section{margin:0 0 30px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px;}
+  .sec-num{
+    font-size:12px;letter-spacing:0.1em;color:var(--accent);font-weight:400;
+    min-width:26px;
+  }
+  .sec-title{font-weight:300;font-size:23px;letter-spacing:0.01em;line-height:1.2;margin:0;}
+  .hr{height:0.5px;background:var(--line);border:0;margin:14px 0 16px;}
+  section p{margin:0 0 12px;}
+  .muted{color:var(--graphite);}
+  .hint{font-size:13px;color:var(--mute);line-height:1.6;}
+  .accent-word{color:var(--accent);}
+
+  /* list with mark-style dash marker */
+  ul.b{list-style:none;margin:6px 0 0;padding:0;}
+  ul.b li{position:relative;padding-left:30px;margin-bottom:10px;line-height:1.65;}
+  ul.b li::before{
+    content:"";position:absolute;left:0;top:12px;
+    width:16px;height:2px;background:var(--accent);
+  }
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0 0;padding:0;}
+  ol.steps li{position:relative;padding-left:38px;margin-bottom:12px;line-height:1.65;counter-increment:s;}
+  ol.steps li::before{
+    content:counter(s,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-size:12px;letter-spacing:0.08em;color:var(--accent);font-weight:400;
+  }
+
+  /* callout box (VERADEX / Recht) */
+  .box{border:0.5px solid var(--line);border-left:2px solid var(--accent);
+    padding:22px 24px;border-radius:3px;background:#fbfaf8;margin-top:4px;}
+  .box .lead-line{font-weight:300;font-size:16px;line-height:1.55;margin:0 0 14px;}
+  .proposal{margin-top:16px;padding-top:14px;border-top:0.5px solid var(--line);font-size:14.5px;}
+  .proposal b{font-weight:500;}
+
+  /* flow diagram – HV-Zuteilung */
+  .flow{margin-top:18px;}
+  .flow-title{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin:0 0 12px;}
+  .moment{font-size:13.5px;color:var(--graphite);line-height:1.55;margin:0;padding:13px 16px;border:0.5px solid var(--line);border-radius:3px;background:#fbfaf8;}
+  .arrow{display:block;width:2px;height:16px;background:var(--accent);margin:5px 0 5px 24px;}
+  .fnode{display:flex;align-items:flex-start;gap:14px;border:0.5px solid var(--line);border-left:2px solid var(--accent);border-radius:3px;padding:13px 16px;background:#fbfaf8;}
+  .fno{font-size:13px;color:var(--accent);font-weight:400;min-width:14px;line-height:1.4;}
+  .fbody{flex:1;line-height:1.5;font-size:14px;}
+  .fbody .q{font-weight:500;}
+  .yes{margin-top:7px;font-size:12.5px;color:var(--graphite);}
+  .yes b{color:var(--accent);font-weight:500;}
+  .no{margin-top:5px;font-size:11px;letter-spacing:0.06em;color:var(--mute);text-transform:uppercase;}
+  .flow-foot{font-size:12px;color:var(--mute);margin-top:13px;line-height:1.5;}
+  .weeks{display:flex;gap:10px;}
+  .wk{flex:1;border:0.5px solid var(--line);border-top:2px solid var(--line);border-radius:3px;padding:12px;display:flex;flex-direction:column;gap:3px;background:#fbfaf8;}
+  .wk-a{border-top:2px solid var(--accent);}
+  .wk-no{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute);}
+  .wk-t{font-weight:500;font-size:14px;}
+  .wk-s{font-size:12px;color:var(--accent);}
+  .wbar{margin-top:10px;border:0.5px solid var(--line);border-left:2px solid var(--accent);border-radius:3px;padding:11px 16px;font-size:13.5px;background:#fbfaf8;}
+  .seg{display:flex;gap:10px;}
+  .seg-a,.seg-b{border:0.5px solid var(--line);border-radius:3px;padding:13px 16px;font-size:13.5px;line-height:1.45;background:#fbfaf8;}
+  .seg-a{flex:0 0 30%;}
+  .seg-b{flex:1;border-left:2px solid var(--accent);}
+  .seg-l{display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--mute);margin-bottom:4px;}
+
+  .pagefoot{
+    margin-top:30px;padding-top:16px;border-top:0.5px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .pagefoot .claim{font-weight:300;font-size:13px;color:var(--accent);letter-spacing:0.04em;}
+  .pagefoot .who{font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);}
+
+  strong{font-weight:500;}
+
+  @media (max-width:620px){
+    .cover{padding:38px 26px;}
+    .cover h1{font-size:34px;}
+    .sheet{padding:34px 24px 24px;}
+    .sec-head{gap:10px;}
+    .sec-title{font-size:20px;}
+    .weeks,.seg{flex-direction:column;}
+    .cover-top{flex-direction:column;gap:14px;}
+  }
+
+  @media print{
+    html{background:#f7f5f2;}
+    body{background:#f7f5f2;font-size:11pt;}
+    .pagebg{display:block;position:fixed;top:0;left:0;width:100%;height:100%;background:#f7f5f2;z-index:-1;}
+    .doc{max-width:none;margin:0;padding:0;}
+    @page{margin:16mm 15mm;}
+    @page:first{margin:0;}
+    .cover{border-radius:0;break-after:page;padding:60px 56px;min-height:297mm;}
+    .sheet{border-radius:0;margin-top:0;padding:0;}
+    section{break-inside:auto;}
+    .sec-head{break-inside:avoid;}
+    .sec-head,.sec-title,.flow-title,.hr{break-after:avoid;}
+    p{orphans:2;widows:2;}
+    ul.b li,ol.steps li{break-inside:avoid;}
+    .box{break-inside:avoid;background:#fbfaf8 !important;}
+    .fnode,.moment{break-inside:avoid;background:#fbfaf8 !important;}
+    .weeks,.seg{break-inside:avoid;}
+    .wk,.wbar,.seg-a,.seg-b{background:#fbfaf8 !important;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="pagebg" aria-hidden="true"></div>
+<div class="doc">
+
+  <!-- ============ COVER ============ -->
+  <header class="cover">
+    <svg class="lines" viewBox="0 0 480 660" preserveAspectRatio="none" aria-hidden="true">
+      <line x1="150" y1="70"  x2="480" y2="70"  stroke="#f7f5f2" stroke-width="1" opacity="0.06"/>
+      <line x1="190" y1="190" x2="480" y2="190" stroke="#f7f5f2" stroke-width="1" opacity="0.05"/>
+      <line x1="230" y1="310" x2="480" y2="310" stroke="#f7f5f2" stroke-width="1" opacity="0.04"/>
+      <line x1="270" y1="430" x2="480" y2="430" stroke="#f7f5f2" stroke-width="1" opacity="0.03"/>
+      <line x1="310" y1="540" x2="480" y2="540" stroke="#f7f5f2" stroke-width="1" opacity="0.025"/>
+    </svg>
+
+    <div class="cover-top">
+      <svg class="lockup-logo" width="200" height="44" viewBox="0 0 432 95" aria-label="VERADEX — Werte · Struktur · Verantwortung" font-family="Arial,'Liberation Sans',Helvetica,sans-serif">
+        <g transform="translate(0,10)">
+          <rect x="0" y="0" width="88" height="7" fill="#f7f5f2"/>
+          <rect x="0" y="36.83" width="61.6" height="7" fill="#f7f5f2"/>
+          <rect x="0" y="73.66" width="39.6" height="7" fill="#8a9ba8"/>
+        </g>
+        <text x="132" y="46.83" font-size="53.5" font-weight="300" letter-spacing="6.8" fill="#f7f5f2">VERADEX</text>
+        <text x="132" y="90" font-size="9.18" font-weight="400" letter-spacing="3.6" fill="#8a9ba8">WERTE · STRUKTUR · VERANTWORTUNG</text>
+      </svg>
+      <div class="doc-label">Strategiepapier</div>
+    </div>
+
+    <h1>Reichweite für MIDA</h1>
+    <p class="lead">Ein regelmäßiges Interview-Format, das MIDA bekannt macht – und Menschen in das Webinar von Herrn Grabscheid und zu den Handelsvertretern führt.</p>
+
+    <div class="meta">
+      <span class="who">Konzept für mehr Reichweite und Bekanntheit der Marke MIDA</span>
+      <span class="sub">Thomas Fiebig · VERADEX · Juni 2026</span>
+    </div>
+
+    <div class="cover-foot">
+      <span class="claim">Struktur, die arbeitet.</span>
+      <span class="site">veradex.de</span>
+    </div>
+  </header>
+
+  <!-- ============ CONTENT ============ -->
+  <main class="sheet">
+
+    <div class="runhead">
+      <div class="lockup">
+        <svg class="mark" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect x="0" y="0"    width="28"   height="3" fill="#0f0f0f"/>
+          <rect x="0" y="12.5" width="19.6" height="3" fill="#0f0f0f"/>
+          <rect x="0" y="25"   width="12.6" height="3" fill="#8a9ba8"/>
+        </svg>
+        <span class="wordmark" style="font-size:13px;">VERADEX</span>
+      </div>
+      <span class="site">Konzept · Reichweite für MIDA</span>
+    </div>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Die Idee in einem Satz</h2></div>
+      <hr class="hr">
+      <p>Ein regelmäßiges Interview-Format mit bekannten Stimmen aus der Finanz- und Krisenvorsorge-Szene. Wir nutzen die <span class="accent-word">Reichweite dieser Gäste</span>, um die Marke MIDA bekannt zu machen – und führen die Zuschauer in das Monats-Webinar von Herrn Grabscheid und zu den Handelsvertretern.</p>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Wo wir heute stehen</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li>MIDA hat ein starkes Angebot – die Struktur mit Sitz in Liechtenstein und Verwahrung in der Schweiz. Aber kaum jemand kennt MIDA.</li>
+        <li>Das Monats-Webinar ist inhaltlich gut, erreicht aber zu wenige Menschen. Verteilte Links allein erzeugen keine Reichweite.</li>
+        <li>Uns fehlt nicht die Substanz, sondern die Aufmerksamkeit.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Warum die Idee funktioniert – der Beweis</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li>Ein Wettbewerber, Dominik Kettner, hat genau auf diesem Weg eine sehr große Reichweite aufgebaut: mit Interviews mit bekannten Namen.</li>
+        <li>Sein neuer Podcast „Hopf &amp; Kettner“ erreichte schon mit der allerersten Folge über <strong>213.000 Aufrufe</strong>. <span class="hint">(Quelle: InvestmentWeek, Februar 2026)</span></li>
+        <li>Wichtig daran: Diese Reichweite kam vor allem deshalb zustande, weil der Gesprächspartner bereits ein <strong>großes eigenes Publikum</strong> mitbrachte. Das ist der Hebel – die Bekanntheit des Gastes.</li>
+        <li>Das Prinzip einfach gesagt: Man leiht sich die Aufmerksamkeit des Gastes und lenkt sie auf die eigene Marke (MIDA).</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Was wir aufgreifen – die Themen</h2></div>
+      <hr class="hr">
+      <p class="muted">Die großen Themen, die viele Menschen beschäftigen – alle real und belegbar:</p>
+      <ul class="b">
+        <li>Inflation und der schleichende Kaufkraftverlust des Euro.</li>
+        <li>Geopolitik und Krisen – Konflikte, Sanktionen und Handelskonflikte beeinflussen direkt Wirtschaft, Währungen und Preise.</li>
+        <li>Der digitale Euro <span class="hint">(geplantes digitales Zentralbank-Geld; die Gesetzgebung in der EU läuft, ein möglicher Start frühestens um 2029).</span></li>
+        <li>Das geplante EU-Vermögensregister <span class="hint">(ein geplantes EU-weites Verzeichnis von Vermögen ab 200.000 € – darin sollen auch Edelmetalle und Schließfächer erfasst werden).</span></li>
+        <li>Echte, anfassbare Werte gegenüber rein digitalen.</li>
+        <li>Warum der Lagerort und der Rechtsraum <span class="hint">(welches Land die Regeln bestimmt)</span> entscheidend sind.</li>
+      </ul>
+      <p class="hint" style="margin-top:14px;">Kurz: Wir müssen nichts erfinden – die Fakten selbst sind das Argument.</p>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Was MIDA besonders macht</h2></div>
+      <hr class="hr">
+      <p class="muted">Nicht einzelne Produkte stehen im Mittelpunkt, sondern die gesamte Struktur:</p>
+      <ul class="b">
+        <li>Sitz in Liechtenstein und Verwahrung im Schweizer Zollfreilager <span class="hint">(ein Hochsicherheitslager außerhalb der EU).</span></li>
+        <li>Physisches Eigentum, kein Gegenparteirisiko – <span class="hint">Sie hängen nicht davon ab, dass eine Bank zahlungsfähig bleibt.</span></li>
+        <li>Eigentumsnachweis über ein Testat <span class="hint">(notarielle Bestätigung)</span>, Prüfung durch unabhängige Treuhänder, versichert.</li>
+        <li>Verteilung über verschiedene Rechtsräume als echter Schutz des Vermögens.</li>
+      </ul>
+      <p style="margin-top:14px;"><strong>Botschaft:</strong> Die Menschen sollen verstehen, <span class="accent-word">warum</span> diese Struktur Vorteile gegenüber anderen Modellen hat.</p>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Wie aus Zuschauern Kunden werden – der Weg</h2></div>
+      <hr class="hr">
+      <ol class="steps">
+        <li>Das Interview bringt Reichweite – viele Menschen sehen es.</li>
+        <li>Der Zuschauer wird auf MIDA aufmerksam.</li>
+        <li>Wir sammeln Interessierte ein – nicht nur die wenigen, die sich sofort anmelden. Wir geben etwas Nützliches gratis (z. B. einen kurzen Ratgeber) und erhalten dafür die E-Mail-Adresse. <strong>So geht niemand verloren.</strong></li>
+        <li>Wir bleiben automatisch in Kontakt – vorbereitete E-Mails, die über Wochen Vertrauen aufbauen.</li>
+        <li>Einladung ins Webinar von Herrn Grabscheid – live und als Aufzeichnung jederzeit abrufbar.</li>
+        <li>Persönlicher Kontakt durch den zugeteilten Handelsvertreter – <strong>zeitnah</strong>, am besten innerhalb von 24 Stunden nach dem Webinar, solange das Interesse frisch ist.</li>
+      </ol>
+      <p class="hint" style="margin-top:14px;">So wird das Format zum Reichweiten-Motor <strong>vor</strong> dem bestehenden Webinar – es speist das Webinar, statt es zu ersetzen.</p>
+
+      <div class="flow">
+        <p class="flow-title">So wird der richtige Handelsvertreter zugeteilt</p>
+        <div class="moment"><strong>Der Moment der Zuteilung:</strong> Solange jemand nur das Video schaut, ist er anonym. Zugeteilt wird erst, sobald er auf der Landingpage seine Daten hinterlässt (Gratis-Ratgeber oder Webinar-Anmeldung).</div>
+        <span class="arrow"></span>
+        <div class="fnode"><span class="fno">1</span><div class="fbody"><div class="q">Ist die Person schon einem Handelsvertreter zugeordnet?</div><div class="yes"><b>Ja →</b> zurück an genau diesen HV</div><div class="no">Nein ↓</div></div></div>
+        <span class="arrow"></span>
+        <div class="fnode"><span class="fno">2</span><div class="fbody"><div class="q">Kam sie über den eigenen Link eines Handelsvertreters?</div><div class="yes"><b>Ja →</b> dieser HV</div><div class="no">Nein ↓ &nbsp; = &nbsp; „Haus-Kontakt“</div></div></div>
+        <span class="arrow"></span>
+        <div class="fnode"><span class="fno">3</span><div class="fbody"><div class="q">Zuteilung nach Region / Postleitzahl</div><div>Mehrere Handelsvertreter in der Region? → <strong>reihum</strong> (jeder der Reihe nach).</div></div></div>
+        <span class="arrow"></span>
+        <div class="fnode"><span class="fno">4</span><div class="fbody"><div class="q">Nachfass-Frist</div><div>Meldet sich der zugeteilte HV nicht in z. B. 24 Stunden, geht der Kontakt automatisch an den nächsten.</div></div></div>
+        <p class="flow-foot">Die Regel legt MIDA fest · VERADEX setzt sie im System um und macht für alle sichtbar, wer welchen Kontakt erhalten hat.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Das Format im Überblick</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li><strong>Name</strong> (zur Auswahl): „MIDA Klartext“ · „Substanz“ · „Werte im Klartext“.</li>
+        <li><strong>Rhythmus:</strong> jede Woche ein Interview, dazu einmal im Monat das Webinar – fester Wochentag für Wiedererkennung (siehe Monatsrhythmus unten).</li>
+        <li><strong>Länge:</strong> Interview ca. 30–45 Minuten (bei starkem Gast bis 60), Webinar ca. 45–60 Minuten – an üblichen Engagement-Werten orientiert; dazu kurze Clips zum Teilen.</li>
+        <li><strong>Plattform:</strong> YouTube als Hauptkanal; daraus kurze Clips und ein Audio-Podcast.</li>
+        <li>Aus einem Interview machen wir <strong>viele Inhalte</strong> (Clips, kurze Beiträge, ein Text) – so zahlt sich die Arbeit mehrfach aus.</li>
+        <li><strong>Moderation:</strong> offen (siehe Entscheidungen).</li>
+      </ul>
+
+      <div class="flow">
+        <p class="flow-title">Der Monatsrhythmus</p>
+        <div class="weeks">
+          <div class="wk"><span class="wk-no">Woche 1</span><span class="wk-t">Interview</span><span class="wk-s">bekanntes Gesicht</span></div>
+          <div class="wk"><span class="wk-no">Woche 2</span><span class="wk-t">Interview</span><span class="wk-s">Insider / Branchenkenner</span></div>
+          <div class="wk"><span class="wk-no">Woche 3</span><span class="wk-t">Interview</span><span class="wk-s">Insider / Branchenkenner</span></div>
+          <div class="wk wk-a"><span class="wk-no">Woche 4</span><span class="wk-t">Interview</span><span class="wk-s">Herr Grabscheid</span></div>
+        </div>
+        <div class="wbar"><strong>1× im Monat:</strong> Webinar mit Herrn Grabscheid · 45–60 Minuten</div>
+        <p class="flow-foot">Pro Monat: 1× bekanntes Gesicht (Reichweite) + 2× Insider/Branchenkenner (Tiefe &amp; Glaubwürdigkeit) + 1× Herr Grabscheid (das Gesicht von MIDA), dazu 1 Webinar. <em>Insider z. B. Edelmetall-Analyst, Schweizer/Liechtensteiner Finanzprofi, Steuer-/Vermögensschutz-Experte. Start ggf. mit 2 Interviews/Monat und auf wöchentlich steigern, sobald erste Folgen als Referenz und eine Gäste-Pipeline da sind.</em></p>
+      </div>
+
+      <div class="flow">
+        <p class="flow-title">So ist das Webinar aufgebaut – „Warum MIDA“ steht im Mittelpunkt</p>
+        <div class="seg">
+          <div class="seg-a"><span class="seg-l">ca. 10 Min.</span>Aktuelle Themen (Geopolitik, Rente, Versicherungen)</div>
+          <div class="seg-b"><span class="seg-l">Hauptteil</span>Warum MIDA: die Vorteile von Verwahrung in der Schweiz und Sitz in Liechtenstein – klar und sichtbar herausgestellt.</div>
+        </div>
+        <p class="flow-foot">Jedes Mal gleicher Aufbau (Wiedererkennung). Der Unterschied zu heute: Nicht die PowerPoint-Themen stehen im Vordergrund, sondern <strong>warum gerade MIDA</strong> – am besten mit echtem Vergleich (Bank/EU gegen MIDA-Struktur) und Bildern vom Zollfreilager.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Was VERADEX im Hintergrund übernimmt</h2></div>
+      <hr class="hr">
+      <div class="box">
+        <p class="lead-line">Die Idee ist der Motor. Aber ein Motor allein fährt nicht – es braucht den Rest des Autos. VERADEX baut und betreibt diesen „Maschinenraum“ hinter MIDA – nach außen unsichtbar. <span class="accent-word">MIDA bleibt das Gesicht. VERADEX ist der Motorraum.</span></p>
+        <p class="muted" style="margin:0 0 8px;">Konkret kümmert sich VERADEX um:</p>
+        <ul class="b">
+          <li>das <strong>Einsammeln der Interessierten</strong> (der gratis Ratgeber und die E-Mail-Erfassung, damit niemand verloren geht);</li>
+          <li>das <strong>automatische Dranbleiben</strong> (die vorbereiteten E-Mail-Folgen);</li>
+          <li>die <strong>faire Verteilung</strong> der Interessenten an die Handelsvertreter – nach klaren, transparenten Regeln, die MIDA festlegt – samt der Information, woher jeder Kontakt kam;</li>
+          <li>den zugeteilten Handelsvertreter <strong>automatisch erinnern</strong>, sich nach dem Webinar zeitnah zu melden – und die Reaktionszeit nachhalten;</li>
+          <li>das <strong>Messen des Erfolgs</strong> mit einfachen Zahlen: wie viele haben zugeschaut, wie viele wurden Interessenten, wie viele Kunden <span class="hint">(KPIs)</span>;</li>
+          <li>das <strong>Vervielfältigen</strong> eines Interviews zu vielen Inhalten;</li>
+        </ul>
+        <div class="proposal">
+          Sie behalten Marke, Inhalt und Entscheidung. VERADEX kümmert sich um Aufbau und Betrieb von Technik und Abläufen.
+          <br><br>
+          <b>So starten wir:</b> Wir setzen die Struktur direkt zum ersten Interview auf und bauen sie von Folge zu Folge aus – Sie sehen den Effekt von Anfang an an echten Zahlen.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Klare Rollen – wer verantwortet was</h2></div>
+      <hr class="hr">
+      <p class="muted">Damit von Anfang an klar ist, wer wofür zuständig ist:</p>
+      <ul class="b">
+        <li><strong>MIDA</strong> verantwortet die <strong>Inhalte</strong>, die Auswahl der Gäste und die <strong>Freigabe vor Veröffentlichung</strong> – ebenso die rechtliche Seite (z. B. dass Interviews Information und Meinung sind, keine Anlageberatung, ohne Gewinnversprechen).</li>
+        <li><strong>VERADEX</strong> baut und betreibt <strong>Technik und Abläufe</strong>: Reichweite einsammeln, Kontakte verwalten, an die Handelsvertreter übergeben, Erfolg messen. VERADEX ist Ausführer und nicht für die Inhalte verantwortlich.</li>
+      </ul>
+      <p class="hint" style="margin-top:12px;">So bleibt die Kontrolle über Marke und Aussagen vollständig bei MIDA.</p>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Offene Entscheidungen</h2></div>
+      <hr class="hr">
+      <ol class="steps">
+        <li><strong>Gesicht des Formats:</strong> Wer moderiert – Herr Grabscheid, Herr Triebner oder wechselnde Handelsvertreter?</li>
+        <li><strong>Kanal:</strong> Offizieller MIDA-Kanal oder ein Moderatoren-Name mit klarem MIDA-Bezug?</li>
+        <li><strong>Erster Gast:</strong> Wer ist über Ihr Netzwerk realistisch erreichbar? <span class="hint">(Das entscheidet den Starttermin.)</span></li>
+        <li><strong>Provision bei zentral erzeugten Kontakten:</strong> Kommt jemand über den eigenen Link eines Handelsvertreters, ist klar, wer die Provision erhält. Kommt jemand über das zentrale Interview oder Webinar (ohne HV-Link), muss MIDA festlegen, wer die Provision bekommt und in welcher Höhe. <span class="hint">(Vorschlag: eigene Kontakte voll wie bisher; für zentrale Kontakte ein vorab vereinbarter Satz.)</span></li>
+        <li><strong>Faire Verteilung der Kontakte:</strong> Nach welcher Regel werden zentral erzeugte Interessenten an die Handelsvertreter verteilt, ohne dass jemand benachteiligt wird? <span class="hint">(Vorschlag: nach Region + reihum innerhalb der Region + Nachfass-Frist – meldet sich ein HV nicht rechtzeitig, geht der Kontakt automatisch weiter. Die Regel legt MIDA fest, VERADEX setzt sie im System um und macht sie für alle sichtbar.)</span></li>
+        <li><strong>Aktuelle HV-Übersicht:</strong> Gibt es eine vollständige, aktuelle Liste aller Handelsvertreter – wer ist aktiv, welche Region, welche Kapazität? <span class="hint">(Grundlage für die faire Verteilung; sollte vor dem Start geklärt sein.)</span></li>
+        <li><strong>Tonalität:</strong> Wie deutlich und zugespitzt sollen die Inhalte sein – wo liegt die Linie? <span class="hint">(Das legt MIDA fest, weil MIDA für die veröffentlichten Inhalte verantwortlich ist.)</span></li>
+        <li><strong>Produktion &amp; Kosten:</strong> Wer nimmt auf und schneidet? Honorare für Gäste? Wer trägt die Kosten?</li>
+        <li><strong>Freigabe:</strong> Wer gibt Inhalte vor der Veröffentlichung frei?</li>
+      </ol>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Nächste Schritte</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li>Ihre Rückmeldung zu den Punkten oben.</li>
+        <li>Danach: Name final, Konzept für die erste Folge, Fragenliste und Anschreiben an den ersten Gast.</li>
+      </ul>
+      <p style="margin-top:18px;">So erreichen Sie mich: <strong>Thomas Fiebig</strong> · <span class="accent-word">info@veradex.de</span> · +49&nbsp;160&nbsp;96432246 · veradex.de</p>
+    </section>
+
+    <div class="pagefoot">
+      <span class="claim">Struktur, die arbeitet.</span>
+      <span class="who">VERADEX · Thomas Fiebig · veradex.de</span>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>
