@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ergänzung · HV-Stärkung · VERADEX</title>
+<style>
+  :root{
+    --ink:#0f0f0f;
+    --graphite:#2e2e2e;
+    --paper:#f7f5f2;
+    --line:#e8e6e3;
+    --mute:#9a9790;
+    --sand:#d4cfc8;
+    --accent:#8a9ba8;
+    --faint:#c8c5be;
+    --font:'Helvetica Neue',Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:var(--font);
+    background:var(--sand);
+    color:var(--ink);
+    font-weight:400;
+    line-height:1.75;
+    font-size:15.5px;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .doc{max-width:880px;margin:0 auto;padding:28px 16px 60px;}
+
+  .mark{display:inline-block;vertical-align:middle;}
+  .wordmark{font-weight:300;letter-spacing:0.22em;}
+  .lockup{display:flex;align-items:center;gap:14px;}
+
+  .sheet{
+    background:var(--paper);border-radius:3px;
+    padding:46px 54px 30px;
+  }
+  .runhead{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-bottom:16px;margin-bottom:34px;border-bottom:0.5px solid var(--line);
+  }
+  .runhead .site{font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);}
+
+  .titleblock{margin:0 0 36px;}
+  .doc-label{font-size:11px;letter-spacing:0.32em;text-transform:uppercase;color:var(--mute);margin:0 0 10px;}
+  .titleblock h1{font-weight:200;font-size:34px;line-height:1.18;letter-spacing:0.01em;margin:0 0 12px;max-width:24ch;}
+  .titleblock .lead{font-weight:300;font-size:16px;line-height:1.6;color:var(--graphite);max-width:58ch;margin:0;}
+  .titleblock .sub{font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);margin-top:14px;}
+
+  section{margin:0 0 30px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:6px;}
+  .sec-num{font-size:12px;letter-spacing:0.1em;color:var(--accent);font-weight:400;min-width:26px;}
+  .sec-title{font-weight:300;font-size:23px;letter-spacing:0.01em;line-height:1.2;margin:0;}
+  .hr{height:0.5px;background:var(--line);border:0;margin:14px 0 16px;}
+  section p{margin:0 0 12px;}
+  .muted{color:var(--graphite);}
+  .hint{font-size:13px;color:var(--mute);line-height:1.6;}
+  .accent-word{color:var(--accent);}
+  strong{font-weight:500;}
+
+  ul.b{list-style:none;margin:6px 0 0;padding:0;}
+  ul.b li{position:relative;padding-left:30px;margin-bottom:10px;line-height:1.65;}
+  ul.b li::before{
+    content:"";position:absolute;left:0;top:12px;
+    width:16px;height:2px;background:var(--accent);
+  }
+  ol.steps{list-style:none;counter-reset:s;margin:6px 0 0;padding:0;}
+  ol.steps li{position:relative;padding-left:38px;margin-bottom:12px;line-height:1.65;counter-increment:s;}
+  ol.steps li::before{
+    content:counter(s,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-size:12px;letter-spacing:0.08em;color:var(--accent);font-weight:400;
+  }
+
+  .box{border:0.5px solid var(--line);border-left:2px solid var(--accent);
+    padding:22px 24px;border-radius:3px;background:#fbfaf8;margin-top:4px;}
+  .box .lead-line{font-weight:300;font-size:16px;line-height:1.55;margin:0;}
+
+  /* Baustein-Karten */
+  .module{border:0.5px solid var(--line);border-radius:3px;background:#fbfaf8;padding:20px 24px;margin-top:14px;}
+  .module .m-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;}
+  .module .m-no{font-size:12px;letter-spacing:0.08em;color:var(--accent);}
+  .module .m-title{font-weight:500;font-size:16px;margin:0;}
+  .module p{margin:0 0 10px;font-size:14.5px;line-height:1.6;}
+  .module .m-value{margin-top:12px;padding-top:12px;border-top:0.5px solid var(--line);font-size:13.5px;line-height:1.6;}
+  .module .m-value b{font-weight:500;color:var(--graphite);}
+
+  .pagefoot{
+    margin-top:30px;padding-top:16px;border-top:0.5px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .pagefoot .claim{font-weight:300;font-size:13px;color:var(--accent);letter-spacing:0.04em;}
+  .pagefoot .who{font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);}
+
+  @media (max-width:620px){
+    .sheet{padding:34px 24px 24px;}
+    .titleblock h1{font-size:27px;}
+    .sec-head{gap:10px;}
+    .sec-title{font-size:20px;}
+  }
+
+  @media print{
+    body{background:#fff;font-size:11pt;}
+    .doc{max-width:none;margin:0;padding:0;}
+    @page{margin:16mm 15mm;}
+    .sheet{border-radius:0;padding:0;background:#fff !important;}
+    section{break-inside:auto;}
+    .sec-head{break-after:avoid;}
+    ul.b li,ol.steps li{break-inside:avoid;}
+    .box,.module{break-inside:avoid;background:#fff !important;}
+    .break-before{break-before:page;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+  <main class="sheet">
+
+    <div class="runhead">
+      <div class="lockup">
+        <svg class="mark" width="20" height="20" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect x="0" y="0"    width="28"   height="3" fill="#0f0f0f"/>
+          <rect x="0" y="12.5" width="19.6" height="3" fill="#0f0f0f"/>
+          <rect x="0" y="25"   width="12.6" height="3" fill="#8a9ba8"/>
+        </svg>
+        <span class="wordmark" style="font-size:13px;">VERADEX</span>
+      </div>
+      <span class="site">Ergänzung · Konzept Reichweite für MIDA</span>
+    </div>
+
+    <div class="titleblock">
+      <p class="doc-label">Ergänzung zum Strategiepapier</p>
+      <h1>Die Handelsvertreter als Stärke – sichtbar gemacht</h1>
+      <p class="lead">Nach unserem Gespräch haben wir das Konzept um einen Punkt geschärft, der die Commodity MIDA Trading AG im Kern ausmacht: den persönlichen Ansprechpartner. Diese Ergänzung zeigt, wie das Vertriebsmodell mit Handelsvertretern zum aktiv beworbenen Vorteil wird – und wie die Handelsvertreter selbst mehr aus dem Format herausholen.</p>
+      <p class="sub">Thomas Fiebig · VERADEX · Juni 2026</p>
+    </div>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Was wir aus dem Gespräch mitnehmen</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li>Das Vertriebsmodell mit persönlichen Ansprechpartnern ist für MIDA gesetzt – es ist Überzeugung, nicht nur Struktur.</li>
+        <li>Die Technik dafür existiert bereits: Jeder Handelsvertreter hat seinen eigenen teilbaren Link, und das Webinar läuft über eine eingespielte Anmeldestrecke.</li>
+        <li>Genutzt wird beides bisher nur von einer Handvoll Handelsvertreter. Die meisten führen MIDA neben ihrem Hauptgeschäft – ihnen fehlen fertige Inhalte und ein sichtbarer Anlass, nicht der Wille.</li>
+        <li>Reichweite entfaltet erst dann Wirkung, wenn sie beim Vertrieb ankommt – wenn aus Aufmerksamkeit ein Gespräch beim Handelsvertreter wird. Genau diese Brücke schließen wir.</li>
+      </ul>
+      <div class="box" style="margin-top:16px;">
+        <p class="lead-line">Die Folgerung: Das Problem ist weder die Technik noch das Budget. Es fehlt die <span class="accent-word">Verbindung zwischen Reichweite und Vertrieb</span> – und genau die bauen wir.</p>
+      </div>
+    </section>
+
+    <section class="break-before">
+      <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Was wir ergänzen – drei Bausteine</h2></div>
+      <hr class="hr">
+
+      <div class="module">
+        <div class="m-head"><span class="m-no">Baustein 1</span><h3 class="m-title">Der persönliche Ansprechpartner wird zum beworbenen Vorteil</h3></div>
+        <p>Bisher ist die Zuteilung an Handelsvertreter ein Vorgang im Hintergrund. Wir holen sie nach vorn: Jedes Interview, jeder Clip und jedes Webinar endet mit derselben Botschaft – <strong>„Sie erhalten einen persönlichen Ansprechpartner in Ihrer Region."</strong> Kein anonymes Formular, kein Online-Shop, sondern ein Mensch mit Namen und Gesicht.</p>
+        <p>Gerade bei einem erklärungsbedürftigen Thema wie Eigentum außerhalb der EU ist das der Unterschied, den ein reiner Shop nicht bieten kann.</p>
+        <div class="m-value"><b>Der Effekt:</b> Das, wovon MIDA überzeugt ist, wird zum sichtbaren Verkaufsargument – in jedem veröffentlichten Inhalt.</div>
+      </div>
+
+      <div class="module">
+        <div class="m-head"><span class="m-no">Baustein 2</span><h3 class="m-title">Fertige Inhalte für jeden Handelsvertreter – Teilen in 30 Sekunden</h3></div>
+        <p>Der eigene Link jedes Handelsvertreters bleibt das Fundament. Was bisher fehlt, ist das Material dazu. Zu jeder veröffentlichten Folge erhält jeder Handelsvertreter ein fertiges Paket: einen kurzen Clip, eine WhatsApp- und E-Mail-Vorlage und einen teilbaren Beitrag – alles bereits mit seinem persönlichen Link versehen.</p>
+        <p>Statt selbst etwas formulieren zu müssen, kopiert er und sendet. Aus einem nackten Link wird ein regelmäßiger, professioneller Anlass, das eigene Netzwerk anzusprechen.</p>
+        <div class="m-value"><b>Der Effekt:</b> Die Hürde fürs Mitmachen sinkt auf nahezu null. Jeder Handelsvertreter, der teilt, wird zum Verstärker der Reichweite – mit Kontakten, die über seinen Link automatisch wieder bei ihm landen.</div>
+      </div>
+
+      <div class="module">
+        <div class="m-head"><span class="m-no">Baustein 3</span><h3 class="m-title">Zentrale Interessenten fließen an die Aktiven zurück</h3></div>
+        <p>Das Format erzeugt auch Interessenten ohne Bezug zu einem bestimmten Handelsvertreter – „Haus-Kontakte". Diese werden nach den im Konzept beschriebenen Regeln verteilt (Region, reihum, Nachfass-Frist). Ergänzend schlagen wir vor: Bei der Verteilung werden Handelsvertreter <strong>bevorzugt, die selbst aktiv beitragen</strong> – die also Inhalte teilen und sich zeitnah um zugeteilte Kontakte kümmern.</p>
+        <p>Kein Druck, keine Quote – sondern ein einfacher Grundsatz: Wer beiträgt, bekommt Geschäft zurück. Die Regel legt MIDA fest; wir setzen sie um und machen sie für alle nachvollziehbar. Wie eine solche Regel konkret aussehen kann, zeigen wir Ihnen gerne anhand eines einfachen, sofort umsetzbaren Modells im Gespräch.</p>
+        <div class="m-value"><b>Der Effekt:</b> Erstmals gibt es einen greifbaren Grund, aktiv zu werden. MIDA gewinnt Vertriebskraft, ohne an Provisionen oder Verträgen etwas ändern zu müssen.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Was davon jeder hat</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li><strong>Der Interessent</strong> bekommt von Anfang an einen Menschen statt eines Formulars – bei diesem Thema das entscheidende Stück Vertrauen.</li>
+        <li><strong>Der Handelsvertreter</strong> bekommt fertige Inhalte, zugeteilte Interessenten und sieht schwarz auf weiß, was sein Einsatz bringt. MIDA wird vom Nebenbei-Produkt zum lohnenden Geschäftszweig.</li>
+        <li><strong>MIDA</strong> macht aus einer Handvoll aktiver Handelsvertreter viele – und verwandelt das eigene Vertriebsmodell in einen Vorteil, den kein Online-Shop kopieren kann.</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Integration statt Neubau</h2></div>
+      <hr class="hr">
+      <p class="muted">Wichtig ist uns: <strong>Nichts Bestehendes wird ersetzt.</strong></p>
+      <ul class="b">
+        <li>Die Webinar-Anmeldung läuft weiter über die bestehende Seite – das Format führt ihr mehr Menschen zu.</li>
+        <li>Die persönlichen Links der Handelsvertreter bleiben das Zuordnungssystem – wir laden sie mit Inhalten auf.</li>
+        <li>Neu hinzu kommen nur die Teile, die heute fehlen: das Einsammeln der Interessierten, das automatische Dranbleiben per E-Mail, die faire Verteilung der Haus-Kontakte und die Auswertung.</li>
+      </ul>
+      <p class="hint" style="margin-top:12px;">Das hält die Kosten klein und den Start schnell – und nutzt, was sich bei MIDA bereits bewährt hat.</p>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Transparent von Anfang an – Wirkung, die mit der Zeit wächst</h2></div>
+      <hr class="hr">
+      <p>Reichweite auf YouTube baut sich über mehrere Monate auf. Die ersten Folgen liefern noch keine großen Zahlen – sie zeigen die Richtung: welche Gäste, Themen und Wege Interessenten bringen. Mit jeder Folge wächst die Basis. Was von Anfang an mitläuft, ist eine einfache Kette aus Zahlen, die jeden Monat auf dem Tisch liegt:</p>
+      <ol class="steps">
+        <li>Wie viele Menschen haben die Inhalte gesehen?</li>
+        <li>Wie viele davon wurden Interessenten (E-Mail hinterlassen, Webinar besucht)?</li>
+        <li>Wie viele Gespräche bei Handelsvertretern sind daraus entstanden?</li>
+        <li>Welche Folgen, Gäste und Wege funktionieren – und welche nicht?</li>
+      </ol>
+      <p style="margin-top:14px;">Wir schlagen vor, <strong>klein und überprüfbar zu starten:</strong> mit den ersten Folgen als Pilot. Sie sehen an echten Zahlen, welche Richtung trägt – und steuern nach, bevor größer investiert wird. Was sich nicht belegen lässt, wird angepasst oder gestrichen.</p>
+    </section>
+
+    <section>
+      <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Nächste Schritte</h2></div>
+      <hr class="hr">
+      <ul class="b">
+        <li>Ihre Rückmeldung zu den drei Bausteinen – insbesondere zum Grundsatz der bevorzugten Verteilung an aktive Handelsvertreter (Baustein 3), den MIDA festlegt.</li>
+        <li>Ein kurzer technischer Abstimmungstermin zu den bestehenden Systemen (Webinar-Anmeldestrecke, Login-Bereich der Handelsvertreter), damit wir sauber andocken statt doppelt zu bauen.</li>
+        <li>Danach: Pilot-Plan für die ersten Folgen mit festen Messpunkten.</li>
+      </ul>
+    </section>
+
+    <div class="pagefoot">
+      <span class="claim">Struktur, die arbeitet.</span>
+      <span class="who">VERADEX · Thomas Fiebig · veradex.de</span>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>
